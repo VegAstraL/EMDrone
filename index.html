@@ -509,6 +509,16 @@
 </div>
 
 <script>
+  const heroVideo = document.querySelector('.hero video');
+  if (heroVideo){
+    heroVideo.muted = true;
+    const startHero = () => heroVideo.play().then(() => {
+      ['touchstart','click','scroll'].forEach(ev => window.removeEventListener(ev, startHero));
+    }).catch(() => {});
+    ['touchstart','click','scroll'].forEach(ev => window.addEventListener(ev, startHero, {passive:true}));
+    startHero();
+  }
+
   const nav = document.getElementById('nav');
   const links = document.querySelectorAll('.menu a');
   const sections = ['accueil','prestations','portfolio'].map(id => document.getElementById(id));
